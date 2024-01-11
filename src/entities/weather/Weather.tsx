@@ -1,5 +1,5 @@
 import { WeatherCard } from "@/components/WeatherCard/WeatherCard";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import axios from "axios";
 import { url } from "@/constants/weatherApi";
@@ -45,19 +45,11 @@ interface WeatherProps {
   city: string;
 }
 
-export function Weather({ city: p }: WeatherProps) {
-  const city = "London";
+export function Weather({ city }: WeatherProps) {
   const apiKey = process.env.EXPO_PUBLIC_WEATHER_API;
   const { data, loading, error } = useQuery<CoordsData>(GET_CITY_COORDS, {
     variables: { city, apiKey },
   });
-
-  if (loading) {
-    return <Loader />;
-  }
-  if (error) {
-    return <Text className="text-red-500">{error?.message}</Text>;
-  }
 
   const {
     data: weatherData,
@@ -70,8 +62,16 @@ export function Weather({ city: p }: WeatherProps) {
       apiKey,
     },
   });
+
+  if (loading) {
+    return <Loader />;
+  }
+  if (error) {
+    return <Text className="text-red-500">{error?.message}</Text>;
+  }
+
   if (weatherLoading) {
-    return <Text>Weather is loading...</Text>;
+    return <Loader />;
   }
   if (weatherError) {
     return <Text className="text-red-500">Weather error...</Text>;
@@ -94,17 +94,3 @@ export function Weather({ city: p }: WeatherProps) {
     </View>
   );
 }
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     const { data: geoData } = await axios.get(
-//       geoUrl + `direct?q=${city}&appid=${process.env.EXPO_PUBLIC_WEATHER_API}`
-//     );
-
-//     // const { data } = await axios.get(
-//     //   url +
-//     //     `onecall?lat=${lat}&lon=${lon}appid=${process.env.EXPO_PUBLIC_WEATHER_API}`
-//     // );
-//   };
-//   fetchData();
-// }, []);

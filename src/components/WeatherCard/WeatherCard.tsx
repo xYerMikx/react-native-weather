@@ -2,7 +2,6 @@ import { Drop } from "@/icons/Drop";
 import { Wind } from "@/icons/Wind";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View } from "react-native";
-import { WeatherText } from "../WeatherText/WeatherText";
 import { WeatherIcon } from "../WeatherIcon/WeatherIcon";
 
 interface WeatherCardProps {

@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Keyboard, TextInput, TouchableWithoutFeedback } from "react-native";
 
 interface InputProps {
   placeholder: string;
   className?: string;
   value?: string;
-  onChange?: () => void;
+  onChangeText?: (text: string) => void;
 }
 
 export function Input({
   placeholder,
   className,
   value,
-  onChange,
+  onChangeText,
   ...props
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -28,7 +28,7 @@ export function Input({
         placeholder={placeholder}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChangeText={onChangeText}
         value={value}
         {...props}
       />

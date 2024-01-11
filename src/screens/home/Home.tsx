@@ -6,11 +6,11 @@ import { useState } from "react";
 import { View } from "react-native";
 
 export function Home() {
-  const [city, setCity] = useState("");
+  const [weatherCity, setWeatherCity] = useState("London");
   return (
     <View className="flex mx-auto flex-col items-center">
-      <Searchbar city={city} setCity={setCity} />
-      <Weather city={city} />
+      <Searchbar setWeatherCity={setWeatherCity} />
+      <Weather city={weatherCity} />
       <StatusBar style="auto" />
     </View>
   );
